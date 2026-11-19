@@ -11,6 +11,7 @@ import (
 	"audioforge/internal/assets"
 	"audioforge/internal/decrypt"
 	"audioforge/internal/media"
+	"audioforge/internal/qmc"
 	"audioforge/internal/store"
 	"audioforge/internal/task"
 
@@ -34,6 +35,7 @@ type App struct {
 	settings store.Settings
 	pool     *task.Pool
 	logger   *zap.Logger
+	qmc      *qmc.Client
 }
 
 // Bootstrap 是前端启动时需要的全部数据。
@@ -63,7 +65,7 @@ type StartOptions struct {
 
 // NewApp 创建应用实例。
 func NewApp() *App {
-	return &App{settings: store.Load(), logger: zap.NewNop()}
+	return &App{settings: store.Load(), logger: zap.NewNop(), qmc: qmc.New()}
 }
 
 func (a *App) startup(ctx context.Context) {
@@ -294,6 +296,7 @@ func (a *App) ensurePool(s store.Settings) *task.Pool {
 		},
 		Workers:  s.Workers,
 		Decrypt:  decrypt.Params{KggDb: s.KggDbPath},
+		QmcKeys:  a.qmc.Resolve,
 		Logger:   a.logger,
 		OnUpdate: a.onTaskUpdate,
 		OnStats:  a.onStats,

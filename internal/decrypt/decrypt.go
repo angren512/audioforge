@@ -33,6 +33,10 @@ type Params struct {
 	KggDb   string
 }
 
+// QmcKeyResolver 按源文件解析 QQ 音乐新版（musicex）密钥。
+// 返回空表示该文件不需要在线密钥。
+type QmcKeyResolver func(ctx context.Context, src string) (common.QMCKeys, error)
+
 // Decode 把加密文件解密成普通音频临时文件，返回临时文件路径，调用方负责删除。
 func Decode(ctx context.Context, src, tmpDir string, p Params, logger *zap.Logger) (string, error) {
 	if IsSoda(src) {

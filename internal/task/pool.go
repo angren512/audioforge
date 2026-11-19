@@ -26,6 +26,7 @@ type Config struct {
 	Media     media.Options
 	Workers   int
 	Decrypt   decrypt.Params
+	QmcKeys   decrypt.QmcKeyResolver
 	Logger    *zap.Logger
 	OnUpdate  func(Task)
 	OnStats   func(Stats)
@@ -259,7 +260,18 @@ func (p *Pool) process(t *Task) {
 			t.State = StateDecrypting
 			t.Message = "正在解密"
 		})
-		tmp, err := decrypt.Decode(ctx, t.Src, cfg.TmpDir, cfg.Decrypt, cfg.Logger)
+		params := cfg.Decrypt
+		if cfg.QmcKeys != nil {
+			keys, err := cfg.QmcKeys(ctx, t.Src)
+			if err != nil {
+				p.finish(t.ID, StateFailed, err.Error())
+				return
+			}
+			if len(keys) > 0 {
+				params.QmcKeys = keys
+			}
+		}
+		tmp, err := decrypt.Decode(ctx, t.Src, cfg.TmpDir, params, cfg.Logger)
 		if err != nil {
 			p.finish(t.ID, StateFailed, err.Error())
 			return

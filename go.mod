@@ -6,6 +6,7 @@ require (
 	git.um-react.app/um/cli v0.2.20
 	github.com/wailsapp/wails/v2 v2.17.1
 	go.uber.org/zap v1.27.0
+	golang.org/x/sys v0.48.0
 )
 
 require (
@@ -44,7 +45,6 @@ require (
 	golang.org/x/crypto v0.57.0 // indirect
 	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b // indirect
 	golang.org/x/net v0.60.0 // indirect
-	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/text v0.42.0 // indirect
 	modernc.org/libc v1.66.10 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
