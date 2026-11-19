@@ -1,0 +1,36 @@
+# Wails / Go 构建产物
+build/
+frontend/dist/
+*.test
+*.out
+
+# 根目录的构建产物 exe（保留 internal/assets/bin 里 embed 用的 exe）
+/AudioForge.exe
+
+# Go
+vendor/
+*.cover
+coverage.out
+
+# 前端依赖
+node_modules/
+
+# 开发缓存
+.vite-temp/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 日志 & 临时文件
+*.log
+_dl/
+*.tmp

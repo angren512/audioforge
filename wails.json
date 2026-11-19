@@ -1,0 +1,20 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "audioforge",
+  "outputfilename": "AudioForge",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "chenjq",
+    "email": "chenjiaqi@miaoxin-inc.com"
+  },
+  "info": {
+    "companyName": "AudioForge",
+    "productName": "音频工坊 AudioForge",
+    "productVersion": "1.0.0",
+    "copyright": "Copyright © 2026",
+    "comments": "批量解锁与转换本地音频"
+  }
+}
